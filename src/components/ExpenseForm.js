@@ -15,7 +15,7 @@ const labelStyles = `
 class ExpenseForm extends Component {
   state = {
     name: '',
-    amount: 0,
+    amount: '',
   };
 
   handleChange = e => {
@@ -24,11 +24,17 @@ class ExpenseForm extends Component {
     });
   };
 
+  clearInput = () =>
+    this.setState({
+      name: '',
+      amount: '',
+    });
+
   render() {
     const { onSubmit } = this.props;
     const { name, amount } = this.state;
     return (
-      <Form onSubmit={e => onSubmit(e, this.state, shortid())}>
+      <Form onSubmit={e => onSubmit(e, this.state, shortid(), this.clearInput)}>
         <Label customStyles={labelStyles}>
           Enter expense name
           <Input
@@ -55,9 +61,9 @@ class ExpenseForm extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (e, obj, id) => {
+  onSubmit: (e, obj, id, clearInput) => {
     e.preventDefault();
-    // BudgetForm.clearInput();
+    clearInput();
     return dispatch(setExpense({ ...obj, id }));
   },
 });

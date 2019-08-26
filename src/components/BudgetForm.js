@@ -13,7 +13,7 @@ const labelStyles = `
 
 class BudgetForm extends Component {
   state = {
-    budgetValue: 0,
+    budgetValue: null,
   };
 
   onChange = value => {
@@ -24,19 +24,19 @@ class BudgetForm extends Component {
 
   clearInput = () =>
     this.setState({
-      budgetValue: 0,
+      budgetValue: null,
     });
 
   render() {
     const { onSubmit } = this.props;
     const { budgetValue } = this.state;
     return (
-      <Form onSubmit={e => onSubmit(e, budgetValue)}>
+      <Form onSubmit={e => onSubmit(e, budgetValue, this.clearInput)}>
         <Label customStyles={labelStyles}>
           Enter your total budget
           <Input
             type="number"
-            value={budgetValue}
+            value={Number(budgetValue)}
             onChange={event => this.onChange(event.target.value)}
           />
         </Label>
@@ -48,8 +48,9 @@ class BudgetForm extends Component {
 }
 
 const mapDistatchToProps = dispatch => ({
-  onSubmit: (e, text) => {
+  onSubmit: (e, text, clearInput) => {
     e.preventDefault();
+    clearInput();
     return dispatch(setBudget(text));
   },
 });
