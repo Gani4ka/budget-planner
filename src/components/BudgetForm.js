@@ -13,7 +13,7 @@ const labelStyles = `
 
 class BudgetForm extends Component {
   state = {
-    budgetValue: null,
+    budgetValue: '',
   };
 
   onChange = value => {
@@ -24,7 +24,7 @@ class BudgetForm extends Component {
 
   clearInput = () =>
     this.setState({
-      budgetValue: null,
+      budgetValue: '',
     });
 
   render() {
@@ -36,7 +36,7 @@ class BudgetForm extends Component {
           Enter your total budget
           <Input
             type="number"
-            value={Number(budgetValue)}
+            value={budgetValue}
             onChange={event => this.onChange(event.target.value)}
           />
         </Label>

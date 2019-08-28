@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
 
 const Values = ({ budget, expenses, balance }) => (
   <Container>
-    <Stat label="Budget" value={budget} isPositive />
+    <Stat label="Budget" value={Number(budget)} isPositive />
     <Stat label="Expenses" value={expenses} />
     <Stat label="Balance" value={balance} isPositive={balance >= 0} />
   </Container>
